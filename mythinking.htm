@@ -20,20 +20,39 @@ function newPopup(url) {
 
 var myScroll;
 function loaded() {
-	myScroll = new iScroll('wrapper', {
-		useTransform: false,
-		onBeforeScrollStart: function (e) {
-			var target = e.target;
-			while (target.nodeType != 1) target = target.parentNode;
-
-			if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA')
-				e.preventDefault();
-		}
-	});
+	myScroll = new iScroll('wrapper');
 }
 
 document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-document.addEventListener('DOMContentLoaded', loaded, false);
+
+/* * * * * * * *
+ *
+ * Use this for high compatibility (iDevice + Android)
+ *
+ */
+document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+/*
+ * * * * * * * */
+
+
+/* * * * * * * *
+ *
+ * Use this for iDevice only
+ *
+ */
+//document.addEventListener('DOMContentLoaded', loaded, false);
+/*
+ * * * * * * * */
+
+
+/* * * * * * * *
+ *
+ * Use this if nothing else works
+ *
+ */
+//window.addEventListener('load', setTimeout(function () { loaded(); }, 200), false);
+/*
+ * * * * * * * */
 
 </script>
 
@@ -453,7 +472,7 @@ var que3='';
 //alert(readCookie('cat_id'));
 var ld=localStorage.cat_id;
 var uid=localStorage.uname;
-  var flickerAPI = "http://50.56.237.229/scroll/examples/simple/mythinking.php?jsoncallback=?&ld="+ld+"&uid="+uid;
+  var flickerAPI = "http://50.56.237.229/scrolldemo/examples/simple/mythinking.php?jsoncallback=?&ld="+ld+"&uid="+uid;
   $.getJSON( flickerAPI, {
     tags: "mount rainier",
     tagmode: "any",
@@ -518,7 +537,7 @@ else
 //alert(que_id);
 var question=localStorage.que_id;
 var uid1=localStorage.uname;
-  var flickerAPI = "http://50.56.237.229/scroll/examples/simple/thinking.php?jsoncallback=?&ld="+question+"&uid="+uid1;
+  var flickerAPI = "http://50.56.237.229/scrolldemo/examples/simple/thinking.php?jsoncallback=?&ld="+question+"&uid="+uid1;
   $.getJSON( flickerAPI, {
     tags: "mount rainier",
     tagmode: "any",
@@ -673,7 +692,7 @@ xmlhttp.send();
             
         </script>-->
         <!--<script>
-            function disable_button()
+           function disable_button()
             {
             //alert("dfvs");
             document.getElementById('btn1').style.display="none";
@@ -701,7 +720,6 @@ xmlhttp.send();
 		<div id="header" style="background:#666666; text-align:left;">
 <a href="enter.htm"><img src="images/logo1.jpg" style="width:100%; height:auto; float:left; " /></a>
 </div>
-
 <div id="wrapper">
 	<div id="scroller">
 			<div id="container" style="padding-top:20px;">
@@ -735,8 +753,8 @@ This Lucky Dip has been researched<br/><span id="r_times" style="font-size:14px;
 </div>
 <div style="width:100%;color:#FFFFFF; float:left; font-size:16px; margin-top:5px; padding-bottom:10px; border-bottom:1px solid #CCCC00;">
 <span style="font-weight:bold;">Submitted by:</span>  <br/>
-<span style="font-size:14px; line-height:1.0; color:#CCCC00; font-weight:bold;" id="submitted">
-
+<span style="font-size:14px; line-height:1.0; color:#CCCC00; font-weight:bold; " id="submitted">
+&nbsp; &nbsp;
 </span>
 <br />
 
@@ -770,7 +788,7 @@ This Lucky Dip has been viewed <span id="viewed">  </span> times.<br/>
 <td align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;  font-weight:bold;color:#B6F02F;">Want different questions?</td>
 </tr>
 <tr>
-<td align="center" ><a href="mythinking.htm"><input type="button" name="btn1" id="btn1" value="Dip Again" class="button2" onclick="return disable_button();"></a><input type="button" name="btn3" id="btn3" value="Dip Again" class="button2" style="display:none;"></td>
+<td align="center" ><a href="mythinking.htm"><button name="btn1" id="btn1"  class="button2" >Dip<br/> Again</button></a><!--<input type="button" name="btn3" id="btn3" value="Dip Again" class="button2" style="display:none;">--></td>
 </tr>
 <tr>
 <td align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:14px;  font-weight:bold;color:#B6F02F;"><span id="popUpBtn1" style="color:#8AE4EE;">"How do I record my research? Click Here"</span> </td>
@@ -787,9 +805,10 @@ This Lucky Dip has been viewed <span id="viewed">  </span> times.<br/>
 </div>
 </div>
 						
-		
+	<div style="width:100%; height:300px; float:left;">	
 </div>
 						</div>
+						
 			</div>
 			<div id="footer">
 
